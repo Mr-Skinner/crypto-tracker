@@ -26,6 +26,17 @@
     justify-content: right !important;
 }
 
+.coin-info-card .card-actions .dropdown{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.coin-info-card .card-actions .dropdown > button{
+    font-size: 1.25rem;
+    padding: 0;
+    margin: -5px 1em 0em;
+}
+
 .coin-info-wrapper {
     height: 90%;
     width: 100%;
