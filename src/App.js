@@ -8,7 +8,7 @@ import Coin from "./components/Coin";
 function App() {
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState("");
-  const [favourites, setFavs] = useState(["default"]);
+  const [favourites, setFavs] = useState([]);
   const [currency, setCurrency] = useState("gbp");
   const [sortBy, setSort] = useState("market_cap");
   const currencyMapping = {
@@ -17,12 +17,22 @@ function App() {
     eur: "€",
   };
 
+  const LOCAL_STORAGE_KEY = 'crypto-tracker-app.favourites';
   const coingeckoUrl =
     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=" +
     currency +
     "&order=market_cap_desc&per_page=100&page=1&sparkline=false";
   
   let filteredCoins = [];
+
+  useEffect(() => {
+    const storedFavourites = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
+    if (storedFavourites) setFavs(storedFavourites)
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(favourites))
+  }, [favourites]);
 
   useEffect(() => {
     axios
