@@ -1,0 +1,57 @@
+.modal-backdrop {
+    z-index: 9;
+    background-color: #ffffff94;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    animation: fadeColorIn 200ms ease-in-out;
+}
+
+.coin-info-card {
+    background-color: var(--prim-clr);
+    color: var(--sec-clr);
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px var(--prim-clr);
+    padding: 1em;
+    width: 70vw;
+    height: 60vh;
+    z-index: 10;
+    position: absolute;
+    margin: 10% 14%;
+    animation: growModal 400ms ease-in-out;
+}
+
+.coin-info-card .card-actions{
+    justify-content: right !important;
+}
+
+.coin-info-wrapper {
+    height: 90%;
+    width: 100%;
+    display: flex;
+}
+
+.coin-info-left {
+    height: 100%;
+    width: 30%;
+    padding: 0 1em;
+}
+
+.coin-info-right {
+    height: 100%;
+    width: 70%;
+    border-left: 2px solid var(--sec-clr);
+    padding: 1em;
+}
+
+@keyframes fadeColorIn {
+    from {background-color: #ffffff00;}
+    to {background-color: #ffffff94;}
+}
+
+@keyframes growModal {
+    0% {transform: scale(0)}
+    90% {transform: scale(1.05)}
+    100% {transform: scale(1)}
+}

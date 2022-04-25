@@ -1,0 +1,46 @@
+.banner {
+    background: var(--prim-clr);
+    color: var(--sec-clr);
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    width: 100%;
+    z-index: 50;
+}
+
+.app-title {
+    padding: 0.5em;
+}
+
+.dropdown {
+    padding: 1em;
+    margin: auto;
+}
+
+.dropdown button {
+    font-size: 1.5rem;
+}
+
+.dropdown-menu {
+    min-width: 8rem !important;
+}
+
+.actions-container {
+    display: inline-flex;
+}
+
+#crypto-search {
+    height: 35%;
+    margin: auto;
+}
+
+.btn-primary {
+    background-color: var(--prim-clr) !important;
+    border-color: var(--prim-clr) !important;
+}
+
+.btn-primary:focus,
+.btn-primary:focus-visible{
+    outline: none !important;
+    box-shadow: none !important;
+}

@@ -1,0 +1,12 @@
+body {
+  background-image: linear-gradient(to bottom right, var(--accent-clr), var(--sec-accent-clr));
+  min-height: 100vh;
+}
+
+.crypto-container {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 8em;
+  grid-row-gap: 2em;
+  padding: 8em 5%;
+}
