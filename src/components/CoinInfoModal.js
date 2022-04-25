@@ -57,7 +57,7 @@ function CoinInfoModal(props) {
   const changeTimescale = (e) => {
     let period = e.target.name;
     //console.log(period)
-    if (period && period != "") {
+    if (period && period !== "") {
       setTimeScale(period);
     }
     switch (period) {
@@ -137,8 +137,13 @@ function CoinInfoModal(props) {
         ticks: {
           color: secClr,
         },
-      }
+      },
     },
+  };
+
+  let priceInsight = {
+    currentPriceDiff: 0,
+    athPriceDiff: 0,
   };
 
   if (priceHistory.length > 0) {
@@ -150,8 +155,23 @@ function CoinInfoModal(props) {
       priceValues.push(subArrayValue[1]);
     });
 
-    //console.log(priceDates)
-    //console.log(priceValues)
+    if (priceValues) {
+      let currDiff = priceValues[priceValues.length - 1] - priceValues[0];
+      let athDiff = priceValues[priceValues.length - 1] - props.ath;
+      if (currDiff !== 0)
+        priceInsight.currentPriceDiff = (
+          (currDiff / priceValues[priceValues.length - 1]) *
+          100
+        ).toFixed(2);
+      if (athDiff !== 0)
+        priceInsight.athPriceDiff = (
+          (athDiff / priceValues[priceValues.length - 1]) *
+          100
+        ).toFixed(2);
+    }
+    //console.log(priceDates);
+    //console.log(priceValues);
+    //console.log(priceInsight);
 
     graphData = {
       labels: priceDates,
@@ -214,24 +234,53 @@ function CoinInfoModal(props) {
             <div className="row">
               <div className="coin-stats">
                 <p>Current price: </p>
-                <p>
-                  {props.curr} {props.price.toLocaleString("en-UK")}
-                </p>
+                <div>
+                  <p>
+                    {props.curr} {props.price.toLocaleString("en-UK")}
+                  </p>
+                  <p className="sub-stat">
+                    {timeScale +
+                      " change: " +
+                      Math.abs(priceInsight.currentPriceDiff) +
+                      "% "}
+                    <i
+                      className={
+                        "bi " +
+                        (priceInsight.currentPriceDiff > 0
+                          ? "bi-arrow-up"
+                          : "bi-arrow-down")
+                      }
+                    ></i>
+                  </p>
+                </div>
               </div>
               <div className="coin-stats">
                 <p>All Time High: </p>
-                <p>
+                <div>
                   {props.curr} {props.ath.toLocaleString("en-UK")}
-                </p>
+                  <p className="sub-stat">
+                    {"ATH change: " +
+                      Math.abs(priceInsight.athPriceDiff) +
+                      "% "}
+                    <i
+                      className={
+                        "bi " +
+                        (priceInsight.athPriceDiff > 0
+                          ? "bi-arrow-up"
+                          : "bi-arrow-down")
+                      }
+                    ></i>
+                  </p>
+                </div>
               </div>
               <div className="coin-stats">
-                <p>24 High: </p>
+                <p>{timeScale} High: </p>
                 <p>
                   {props.curr} {props.todaysHigh.toLocaleString("en-UK")}
                 </p>
               </div>
               <div className="coin-stats">
-                <p>24 Low: </p>
+                <p>{timeScale} Low: </p>
                 <p>
                   {props.curr} {props.todaysLow.toLocaleString("en-UK")}
                 </p>

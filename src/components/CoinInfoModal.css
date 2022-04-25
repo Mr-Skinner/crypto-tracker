@@ -49,6 +49,24 @@
     padding: 0 1em;
 }
 
+.coin-stats > div {
+    text-align: end;
+}
+
+.bi-arrow-up {
+    color: var(--accent-clr);
+}
+
+.bi-arrow-down {
+    color: var(--sec-accent-clr);
+}
+
+.sub-stat {
+    font-size: 0.75rem;
+    font-style: italic;
+    margin: 0;
+}
+
 .coin-info-right {
     height: 100%;
     width: 70%;

@@ -17,21 +17,23 @@ function App() {
     eur: "€",
   };
 
-  const LOCAL_STORAGE_KEY = 'crypto-tracker-app.favourites';
+  const LOCAL_STORAGE_KEY = "crypto-tracker-app.favourites";
   const coingeckoUrl =
     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=" +
     currency +
     "&order=market_cap_desc&per_page=100&page=1&sparkline=false";
-  
+
   let filteredCoins = [];
 
   useEffect(() => {
-    const storedFavourites = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
-    if (storedFavourites) setFavs(storedFavourites)
+    const storedFavourites = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY)
+    );
+    if (storedFavourites) setFavs(storedFavourites);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(favourites))
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(favourites));
   }, [favourites]);
 
   useEffect(() => {
@@ -77,31 +79,37 @@ function App() {
   };
 
   let sortedCoins = [...coins];
-  switch(sortBy) {
-    case 'market_cap':
-      sortedCoins = coins.sort((a,b) => (a.market_cap < b.market_cap ? 1: -1));
+  switch (sortBy) {
+    case "market_cap":
+      sortedCoins = coins.sort((a, b) =>
+        a.market_cap < b.market_cap ? 1 : -1
+      );
       break;
-    case 'name_asc':
-      sortedCoins = coins.sort((a,b) => (a.name > b.name ? 1: -1));
+    case "name_asc":
+      sortedCoins = coins.sort((a, b) => (a.name > b.name ? 1 : -1));
       break;
-    case 'name_desc':
-      sortedCoins = coins.sort((a,b) => (a.name < b.name ? 1: -1));
+    case "name_desc":
+      sortedCoins = coins.sort((a, b) => (a.name < b.name ? 1 : -1));
       break;
-    case 'price_asc':
-      sortedCoins = coins.sort((a,b) => (a.current_price > b.current_price ? 1: -1));
+    case "price_asc":
+      sortedCoins = coins.sort((a, b) =>
+        a.current_price > b.current_price ? 1 : -1
+      );
       break;
-    case 'price_desc':
-      sortedCoins = coins.sort((a,b) => (a.current_price < b.current_price ? 1: -1));
+    case "price_desc":
+      sortedCoins = coins.sort((a, b) =>
+        a.current_price < b.current_price ? 1 : -1
+      );
       break;
-    case 'favourites':
-      sortedCoins = coins.sort((a,b) => {
-        if (favourites.includes(a.symbol)){
+    case "favourites":
+      sortedCoins = coins.sort((a, b) => {
+        if (favourites.includes(a.symbol)) {
           return -1;
-        } else if (favourites.includes(b.symbol)){
+        } else if (favourites.includes(b.symbol)) {
           return 1;
         } else return 0;
       });
-      break
+      break;
     default:
       break;
   }
@@ -111,7 +119,7 @@ function App() {
       return coin.name.toLowerCase().includes(search.toLowerCase());
     }
 
-    return 0
+    return 0;
   });
 
   return (
