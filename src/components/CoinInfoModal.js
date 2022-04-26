@@ -214,7 +214,7 @@ function CoinInfoModal(props) {
               Previous 12 Months
             </Dropdown.Item>
           </DropdownButton>
-          <span className="card-action-btn" onClick={closeModal}>
+          <span className="card-action-btn close-modal-btn" onClick={closeModal}>
             <i className="bi bi-x-lg"></i>
           </span>
         </div>

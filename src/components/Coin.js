@@ -30,9 +30,6 @@ function Coin({
   };
 
   const onExpandToggle = (e) => {
-    if (isExpanded) {
-
-    }
     setExpand(!isExpanded);
   };
 

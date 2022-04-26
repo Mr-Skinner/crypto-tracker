@@ -1,7 +1,9 @@
 import { Dropdown, DropdownButton } from "react-bootstrap";
+import { ExportDataToExcel } from "../ExportDataToExcel";
 import "./Navbar.css";
 
 function Navbar(props) {
+  const fileName = "CryptoData";
   const searchCoin = (e) => {
     props.onSearchInput(e.target.value);
   };
@@ -12,7 +14,7 @@ function Navbar(props) {
 
   const sortByHandler = (e) => {
     props.onSortChange(e.target.name);
-  }
+  };
 
   return (
     <div className="banner">
@@ -66,6 +68,7 @@ function Navbar(props) {
             Favourites
           </Dropdown.Item>
         </DropdownButton>
+        <ExportDataToExcel apiData={props.coins} fileName={fileName} />
       </div>
     </div>
   );

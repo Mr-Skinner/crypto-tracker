@@ -128,6 +128,7 @@ function App() {
         onSearchInput={searchHandler}
         onCurrencyChange={currencyHandler}
         onSortChange={sortingHandler}
+        coins={coins}
       />
       <div className="crypto-container">
         {filteredCoins.map((coin) => {
