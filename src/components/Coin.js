@@ -37,6 +37,8 @@ function Coin({
   };
 
   if (isExpanded) {
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${window.scrollY}px`;
     return(
       <CoinInfoModal 
       id={id}
@@ -53,6 +55,8 @@ function Coin({
       />
     );
   } else {
+  document.body.style.position = '';
+  document.body.style.top = '';
   return (
     <div className="container coin-card" id={"coin_" + id}>
       <div className="card-actions">
