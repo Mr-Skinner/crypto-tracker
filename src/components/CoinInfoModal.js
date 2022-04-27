@@ -4,6 +4,7 @@ import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
+import CoinArticles from "./CoinArticles";
 import axios from "axios";
 
 function CoinInfoModal(props) {
@@ -214,11 +215,14 @@ function CoinInfoModal(props) {
               Previous 12 Months
             </Dropdown.Item>
           </DropdownButton>
-          <span className="card-action-btn close-modal-btn" onClick={closeModal}>
+          <span
+            className="card-action-btn close-modal-btn"
+            onClick={closeModal}
+          >
             <i className="bi bi-x-lg"></i>
           </span>
         </div>
-        <div className="coin-info-wrapper">
+        <div className="coin-info-wrapper coin-info-top">
           <div className="coin-info-left">
             <div className="row">
               <div className="coin-title">
@@ -236,7 +240,10 @@ function CoinInfoModal(props) {
                 <p>Current price: </p>
                 <div>
                   <p>
-                    {props.curr} {props.price.toLocaleString("en-UK")}
+                    {props.curr}{" "}
+                    {props.price.toLocaleString("en-UK", {
+                      maximumFractionDigits: 6,
+                    })}
                   </p>
                   <p className="sub-stat">
                     {timeScale +
@@ -257,15 +264,18 @@ function CoinInfoModal(props) {
               <div className="coin-stats">
                 <p>All Time High: </p>
                 <div>
-                  {props.curr} {props.ath.toLocaleString("en-UK")}
+                  {props.curr}{" "}
+                  {props.ath.toLocaleString("en-UK", {
+                    maximumFractionDigits: 6,
+                  })}
                   <p className="sub-stat">
                     {"ATH change: " +
-                      Math.abs(priceInsight.athPriceDiff) +
+                      Math.abs(props.athDiff) +
                       "% "}
                     <i
                       className={
                         "bi " +
-                        (priceInsight.athPriceDiff > 0
+                        (props.athDiff > 0
                           ? "bi-arrow-up"
                           : "bi-arrow-down")
                       }
@@ -276,13 +286,19 @@ function CoinInfoModal(props) {
               <div className="coin-stats">
                 <p>{timeScale} High: </p>
                 <p>
-                  {props.curr} {props.todaysHigh.toLocaleString("en-UK")}
+                  {props.curr}{" "}
+                  {props.todaysHigh.toLocaleString("en-UK", {
+                    maximumFractionDigits: 6,
+                  })}
                 </p>
               </div>
               <div className="coin-stats">
                 <p>{timeScale} Low: </p>
                 <p>
-                  {props.curr} {props.todaysLow.toLocaleString("en-UK")}
+                  {props.curr}{" "}
+                  {props.todaysLow.toLocaleString("en-UK", {
+                    maximumFractionDigits: 6,
+                  })}
                 </p>
               </div>
               <div className="coin-stats">
@@ -294,6 +310,9 @@ function CoinInfoModal(props) {
           <div className="coin-info-right">
             <Line data={graphData} options={graphOptions} />
           </div>
+        </div>
+        <div className="coin-info-wrapper coin-info-bottom">
+          <CoinArticles/>
         </div>
       </div>
     </div>

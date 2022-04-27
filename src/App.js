@@ -147,6 +147,7 @@ function App() {
               todaysHigh={coin.high_24h}
               todaysLow={coin.low_24h}
               ath={coin.ath}
+              athDiff={coin.ath_change_percentage}
             />
           );
         })}

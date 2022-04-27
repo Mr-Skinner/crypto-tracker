@@ -15,6 +15,7 @@ function Coin({
   todaysHigh,
   todaysLow,
   ath,
+  athDiff
   }) {
   
   const [isExpanded, setExpand] = useState(false);
@@ -48,6 +49,7 @@ function Coin({
       todaysHigh={todaysHigh}
       todaysLow={todaysLow}
       ath={ath}
+      athDiff={athDiff}
       onCloseModal={onExpandToggle}
       />
     );
@@ -79,25 +81,25 @@ function Coin({
         <div className="coin-stats">
           <p>Current price: </p>
           <p>
-            {curr} {price.toLocaleString("en-UK")}
+            {curr} {price.toLocaleString("en-UK", {maximumFractionDigits: 6})}
           </p>
         </div>
         <div className="coin-stats">
           <p>All Time High: </p>
           <p>
-            {curr} {ath.toLocaleString("en-UK")}
+            {curr} {ath.toLocaleString("en-UK", {maximumFractionDigits: 6})}
           </p>
         </div>
         <div className="coin-stats">
           <p>24 High: </p>
           <p>
-            {curr} {todaysHigh.toLocaleString("en-UK")}
+            {curr} {todaysHigh.toLocaleString("en-UK", {maximumFractionDigits: 6})}
           </p>
         </div>
         <div className="coin-stats">
           <p>24 Low: </p>
           <p>
-            {curr} {todaysLow.toLocaleString("en-UK")}
+            {curr} {todaysLow.toLocaleString("en-UK", {maximumFractionDigits: 6})}
           </p>
         </div>
         <div className="coin-stats">

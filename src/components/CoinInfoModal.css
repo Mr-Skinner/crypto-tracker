@@ -20,6 +20,7 @@
     position: absolute;
     margin: 10% 14%;
     animation: growModal 400ms ease-in-out;
+    overflow-y: auto;
 }
 
 .coin-info-card .card-actions{
@@ -72,6 +73,12 @@
     width: 70%;
     border-left: 2px solid var(--sec-clr);
     padding: 1em;
+}
+
+.coin-info-bottom {
+    /*border-top: 2px solid var(--sec-clr);*/
+    margin-top: 1em;
+    padding: 1em 0;
 }
 
 @keyframes fadeColorIn {
