@@ -14,7 +14,7 @@ export function CoinArticles() {
             </div>
           </div>
           <div className="article-header-right">
-            <i class="bi bi-three-dots-vertical article-action-icon"></i>
+            <i className="bi bi-three-dots-vertical article-action-icon"></i>
           </div>
         </div>
         <p className="coin-article-text">
@@ -35,7 +35,7 @@ export function CoinArticles() {
             </div>
           </div>
           <div className="article-header-right">
-            <i class="bi bi-three-dots-vertical article-action-icon"></i>
+            <i className="bi bi-three-dots-vertical article-action-icon"></i>
           </div>
         </div>
         <p className="coin-article-text">
@@ -56,7 +56,7 @@ export function CoinArticles() {
             </div>
           </div>
           <div className="article-header-right">
-            <i class="bi bi-three-dots-vertical article-action-icon"></i>
+            <i className="bi bi-three-dots-vertical article-action-icon"></i>
           </div>
         </div>
         <p className="coin-article-text">

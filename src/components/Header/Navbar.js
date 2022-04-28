@@ -52,6 +52,9 @@ function Navbar(props) {
           <Dropdown.Item href="" name="market_cap">
             Market Cap
           </Dropdown.Item>
+          <Dropdown.Item href="" name="top_movers">
+            Top Movers
+          </Dropdown.Item>
           <Dropdown.Item href="" name="name_asc">
             Name (Asc)
           </Dropdown.Item>

@@ -41,7 +41,7 @@ function App() {
       .get(coingeckoUrl)
       .then((res) => {
         setCoins(res.data);
-        //console.log(res.data);
+        console.log(res.data);
       })
       .catch((error) => {
         alert("API ERROR");
@@ -85,6 +85,11 @@ function App() {
         a.market_cap < b.market_cap ? 1 : -1
       );
       break;
+    case "top_movers":
+      sortedCoins = coins.sort((a, b) =>
+        Math.abs(a.price_change_percentage_24h) < Math.abs(b.price_change_percentage_24h) ? 1 : -1
+      );
+      break
     case "name_asc":
       sortedCoins = coins.sort((a, b) => (a.name > b.name ? 1 : -1));
       break;
@@ -148,6 +153,7 @@ function App() {
               todaysLow={coin.low_24h}
               ath={coin.ath}
               athDiff={coin.ath_change_percentage}
+              dayDiff={coin.price_change_percentage_24h}
             />
           );
         })}

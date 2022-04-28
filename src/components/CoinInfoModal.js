@@ -4,6 +4,7 @@ import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
+import CoinBasicStats from "./CoinBasicStats";
 import CoinArticles from "./CoinArticles";
 import axios from "axios";
 
@@ -142,10 +143,7 @@ function CoinInfoModal(props) {
     },
   };
 
-  let priceInsight = {
-    currentPriceDiff: 0,
-    athPriceDiff: 0,
-  };
+  let timeScalePriceDiff = 0;
 
   if (priceHistory.length > 0) {
     let priceDates = [];
@@ -158,18 +156,14 @@ function CoinInfoModal(props) {
 
     if (priceValues) {
       let currDiff = priceValues[priceValues.length - 1] - priceValues[0];
-      let athDiff = priceValues[priceValues.length - 1] - props.ath;
       if (currDiff !== 0)
-        priceInsight.currentPriceDiff = (
+        timeScalePriceDiff = (
           (currDiff / priceValues[priceValues.length - 1]) *
           100
         ).toFixed(2);
-      if (athDiff !== 0)
-        priceInsight.athPriceDiff = (
-          (athDiff / priceValues[priceValues.length - 1]) *
-          100
-        ).toFixed(2);
     }
+
+    if (timeScale === "24h") timeScalePriceDiff = props.dayDiff;
     //console.log(priceDates);
     //console.log(priceValues);
     //console.log(priceInsight);
@@ -224,95 +218,28 @@ function CoinInfoModal(props) {
         </div>
         <div className="coin-info-wrapper coin-info-top">
           <div className="coin-info-left">
-            <div className="row">
-              <div className="coin-title">
-                <img src={props.image} alt="" />
-              </div>
-              <div className="coin-title">
-                <h3>
-                  {props.name} ({props.symbol})
-                </h3>
-              </div>
-            </div>
-            <hr />
-            <div className="row">
-              <div className="coin-stats">
-                <p>Current price: </p>
-                <div>
-                  <p>
-                    {props.curr}{" "}
-                    {props.price.toLocaleString("en-UK", {
-                      maximumFractionDigits: 6,
-                    })}
-                  </p>
-                  <p className="sub-stat">
-                    {timeScale +
-                      " change: " +
-                      Math.abs(priceInsight.currentPriceDiff) +
-                      "% "}
-                    <i
-                      className={
-                        "bi " +
-                        (priceInsight.currentPriceDiff > 0
-                          ? "bi-arrow-up"
-                          : "bi-arrow-down")
-                      }
-                    ></i>
-                  </p>
-                </div>
-              </div>
-              <div className="coin-stats">
-                <p>All Time High: </p>
-                <div>
-                  {props.curr}{" "}
-                  {props.ath.toLocaleString("en-UK", {
-                    maximumFractionDigits: 6,
-                  })}
-                  <p className="sub-stat">
-                    {"ATH change: " +
-                      Math.abs(props.athDiff) +
-                      "% "}
-                    <i
-                      className={
-                        "bi " +
-                        (props.athDiff > 0
-                          ? "bi-arrow-up"
-                          : "bi-arrow-down")
-                      }
-                    ></i>
-                  </p>
-                </div>
-              </div>
-              <div className="coin-stats">
-                <p>{timeScale} High: </p>
-                <p>
-                  {props.curr}{" "}
-                  {props.todaysHigh.toLocaleString("en-UK", {
-                    maximumFractionDigits: 6,
-                  })}
-                </p>
-              </div>
-              <div className="coin-stats">
-                <p>{timeScale} Low: </p>
-                <p>
-                  {props.curr}{" "}
-                  {props.todaysLow.toLocaleString("en-UK", {
-                    maximumFractionDigits: 6,
-                  })}
-                </p>
-              </div>
-              <div className="coin-stats">
-                <p>Market Cap: </p>
-                <p>{props.volume.toLocaleString("en-UK")}</p>
-              </div>
-            </div>
+            <CoinBasicStats
+              id={props.id}
+              curr={props.curr}
+              name={props.name}
+              image={props.image}
+              symbol={props.symbol}
+              price={props.price}
+              volume={props.volume}
+              todaysHigh={props.todaysHigh}
+              todaysLow={props.todaysLow}
+              ath={props.ath}
+              athDiff={props.athDiff}
+              timeScale={timeScale}
+              timeScaleDiff={timeScalePriceDiff}
+            />
           </div>
           <div className="coin-info-right">
             <Line data={graphData} options={graphOptions} />
           </div>
         </div>
         <div className="coin-info-wrapper coin-info-bottom">
-          <CoinArticles/>
+          <CoinArticles />
         </div>
       </div>
     </div>
