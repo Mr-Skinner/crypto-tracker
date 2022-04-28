@@ -37,24 +37,29 @@ export function CoinArticles(props) {
   }, [newsUrl]);
 
   console.log(news);
-
-  return (
-    <div className="coin-info-articles">
-      {news.map((article, index) => {
-        return (
-          <CoinArticle
-            author={article.author}
-            title={article.title}
-            publishedAt={article.publishedAt}
-            description={article.description}
-            url={article.url}
-            image={article.urlToImage}
-            key={index}
-          />
-        );
-      })}
-    </div>
-  );
+  if (news.length > 0 && news[0] !== undefined) {
+    return (
+      <div className="coin-info-wrapper coin-info-bottom">
+        <div className="coin-info-articles">
+          {news.map((article, index) => {
+            return (
+              <CoinArticle
+                author={article.author}
+                title={article.title}
+                publishedAt={article.publishedAt}
+                description={article.description}
+                url={article.url}
+                image={article.urlToImage}
+                key={index}
+              />
+            );
+          })}
+        </div>
+      </div>
+    );
+  } else {
+    return <div className="coin-info-articles"></div>;
+  }
 }
 
 export default CoinArticles;

@@ -238,9 +238,7 @@ function CoinInfoModal(props) {
             <Line data={graphData} options={graphOptions} />
           </div>
         </div>
-        <div className="coin-info-wrapper coin-info-bottom">
-          <CoinArticles name={props.name} />
-        </div>
+        <CoinArticles name={props.name} />
       </div>
     </div>
   );
