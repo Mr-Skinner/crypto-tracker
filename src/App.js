@@ -41,7 +41,7 @@ function App() {
       .get(coingeckoUrl)
       .then((res) => {
         setCoins(res.data);
-        console.log(res.data);
+        //console.log(res.data);
       })
       .catch((error) => {
         alert("API ERROR");

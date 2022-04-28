@@ -1,71 +1,58 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import CoinArticle from "./CoinArticle";
+
 import "./CoinArticles.css";
 
-export function CoinArticles() {
+export function CoinArticles(props) {
+  const NEWS_API_KEY = "b4a62f3a9e67456f8b3020105953ca75";
+  const lastWeek = new Date();
+  lastWeek.setDate(lastWeek.getDate() - 7);
+  let fromDate = lastWeek.toLocaleString();
+
+  const newsUrl =
+    "https://newsapi.org/v2/everything?q=+crypto AND +" +
+    props.name +
+    "&language=en&searchIn=title&from=" +
+    fromDate +
+    "&sortBy=popularity&apiKey=" +
+    NEWS_API_KEY;
+
+  const [news, setNews] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(newsUrl)
+      .then((res) => {
+        let topArticles = [];
+        for (let i = 0; i < 3; i++) {
+          topArticles.push(res.data.articles[i]);
+        }
+        setNews(topArticles);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        alert("API ERROR");
+      });
+  }, [newsUrl]);
+
+  console.log(news);
+
   return (
     <div className="coin-info-articles">
-      <div className="coin-article-container">
-        <div className="article-header-banner">
-          <div className="article-header-left">
-            <i className="bi bi-columns-gap article-icon"></i>
-            <div className="coin-article-title-group">
-              <h3 className="coin-article-title">Title</h3>
-              <p className="coin-article-subtitle">News • 27 Apr</p>
-            </div>
-          </div>
-          <div className="article-header-right">
-            <i className="bi bi-three-dots-vertical article-action-icon"></i>
-          </div>
-        </div>
-        <p className="coin-article-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit
-          nisi sed sollicitudin pellentesque. Nunc posuere purus rhoncus
-          pulvinar aliquam. Ut aliquet tristique nisl vitae volutpat. Nulla
-          aliquet porttitor venenatis.
-        </p>
-      </div>
-      <hr />
-      <div className="coin-article-container">
-        <div className="article-header-banner">
-          <div className="article-header-left">
-            <i className="bi bi-columns-gap article-icon"></i>
-            <div className="coin-article-title-group">
-              <h3 className="coin-article-title">Title</h3>
-              <p className="coin-article-subtitle">News • 27 Apr</p>
-            </div>
-          </div>
-          <div className="article-header-right">
-            <i className="bi bi-three-dots-vertical article-action-icon"></i>
-          </div>
-        </div>
-        <p className="coin-article-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit
-          nisi sed sollicitudin pellentesque. Nunc posuere purus rhoncus
-          pulvinar aliquam. Ut aliquet tristique nisl vitae volutpat. Nulla
-          aliquet porttitor venenatis.
-        </p>
-      </div>
-      <hr />
-      <div className="coin-article-container">
-        <div className="article-header-banner">
-          <div className="article-header-left">
-            <i className="bi bi-columns-gap article-icon"></i>
-            <div className="coin-article-title-group">
-              <h3 className="coin-article-title">Title</h3>
-              <p className="coin-article-subtitle">News • 27 Apr</p>
-            </div>
-          </div>
-          <div className="article-header-right">
-            <i className="bi bi-three-dots-vertical article-action-icon"></i>
-          </div>
-        </div>
-        <p className="coin-article-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit
-          nisi sed sollicitudin pellentesque. Nunc posuere purus rhoncus
-          pulvinar aliquam. Ut aliquet tristique nisl vitae volutpat. Nulla
-          aliquet porttitor venenatis.
-        </p>
-      </div>
+      {news.map((article, index) => {
+        return (
+          <CoinArticle
+            author={article.author}
+            title={article.title}
+            publishedAt={article.publishedAt}
+            description={article.description}
+            url={article.url}
+            image={article.urlToImage}
+            key={index}
+          />
+        );
+      })}
     </div>
   );
 }

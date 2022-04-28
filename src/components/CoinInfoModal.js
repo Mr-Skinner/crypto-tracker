@@ -239,7 +239,7 @@ function CoinInfoModal(props) {
           </div>
         </div>
         <div className="coin-info-wrapper coin-info-bottom">
-          <CoinArticles />
+          <CoinArticles name={props.name} />
         </div>
       </div>
     </div>
