@@ -10,3 +10,26 @@ body {
   grid-row-gap: 2em;
   padding: 8em 5%;
 }
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--sec-clr) var(--prim-clr);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--prim-clr);
+  border-radius: 1px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--sec-clr);
+  border-radius: 10px;
+  border: 4px solid var(--prim-clr);
+}

@@ -5,38 +5,43 @@ import CoinArticle from "./CoinArticle";
 import "./CoinArticles.css";
 
 export function CoinArticles(props) {
-  const NEWS_API_KEY = "b4a62f3a9e67456f8b3020105953ca75";
+  const NEWS_API_KEY = "b772214f9877db5bf8ddc9eb544a197c";
   const lastWeek = new Date();
   lastWeek.setDate(lastWeek.getDate() - 7);
   let fromDate = lastWeek.toLocaleString();
 
   const newsUrl =
-    "https://newsapi.org/v2/everything?q=+crypto AND +" +
+    "https://gnews.io/api/v4/search?q=crypto AND " +
     props.name +
-    "&language=en&searchIn=title&from=" +
+    "&language=en&from=" +
     fromDate +
-    "&sortBy=popularity&apiKey=" +
+    "&sortby=publishedAt&token=" +
     NEWS_API_KEY;
 
   const [news, setNews] = useState([]);
 
   useEffect(() => {
+    const abortCont = new AbortController();
+
     axios
-      .get(newsUrl)
+      .get(newsUrl, { signal: abortCont.signal })
       .then((res) => {
         let topArticles = [];
         for (let i = 0; i < 3; i++) {
           topArticles.push(res.data.articles[i]);
         }
         setNews(topArticles);
-        console.log(res.data);
       })
       .catch((error) => {
-        alert("API ERROR");
+        console.log("API ERROR:", error);
       });
+
+    return () => {
+      abortCont.abort();
+    }
   }, [newsUrl]);
 
-  console.log(news);
+  //console.log(news);
   if (news.length > 0 && news[0] !== undefined) {
     return (
       <div className="coin-info-wrapper coin-info-bottom">
@@ -44,12 +49,12 @@ export function CoinArticles(props) {
           {news.map((article, index) => {
             return (
               <CoinArticle
-                author={article.author}
+                author={article.source.name}
                 title={article.title}
                 publishedAt={article.publishedAt}
                 description={article.description}
                 url={article.url}
-                image={article.urlToImage}
+                image={article.image}
                 key={index}
               />
             );

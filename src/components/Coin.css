@@ -16,6 +16,12 @@ hr {
     border-radius: 5px;
     box-shadow: 0px 1px 5px var(--prim-clr);
     padding: 1em;
+    transition: all .3s ease-out;
+}
+
+.coin-card:hover {
+    box-shadow: 0px 5px 10px var(--prim-clr);
+    transform: translate(0, -3px);
 }
 
 .card-actions {
